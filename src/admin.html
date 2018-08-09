@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理页面</title>
+</head>
+
+<body>
+
+
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script>
+        console.log(window.AV)
+        var APP_ID = 'dsrX6pk7VUG91c9GSkadA5tD-gzGzoHsz';
+        var APP_KEY = 'BGKXdGFBfd1WJREU2vN0Fe0X';
+
+        AV.init({
+            appId: APP_ID,
+            appKey: APP_KEY
+        });
+        var TestObject = AV.Object.extend('Pliylist');
+        var testObject = new TestObject();
+        testObject.save({
+            name: 'test song',
+            cover: 'testurl',
+            createrId: 'test-id',
+            description: '简介。。。。',
+            songList: ['1', '2']
+        }).then(function (object) {
+            alert('LeanCloud Rocks!');
+        })
+    </script>
+</body>
+
+</html>
