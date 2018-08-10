@@ -1,38 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>后台管理页面</title>
+    <title>管理页面</title>
+    <link rel="stylesheet" href="./css/default.css">
 </head>
 
 <body>
 
+    <div class="page">
+        <aside>
+            <div class="newSong">
+            </div>
+            <div id="songList-container">
+            </div>
+            <div class="uploadArea">
+                <div id="uploadContainer" class="draggable">
+                    <div id="uploadButton" class="clickable">
+                        <p>点击或拖曳文件</p>
+                        <p>文件大小不能超过 40MB </p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main>
+        </main>
+    </div>
+
+    <div id="siteLoading" class="site-loading"></div>
 
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
-    <script>
-        console.log(window.AV)
-        var APP_ID = 'dsrX6pk7VUG91c9GSkadA5tD-gzGzoHsz';
-        var APP_KEY = 'BGKXdGFBfd1WJREU2vN0Fe0X';
-
-        AV.init({
-            appId: APP_ID,
-            appKey: APP_KEY
-        });
-        var TestObject = AV.Object.extend('Pliylist');
-        var testObject = new TestObject();
-        testObject.save({
-            name: 'test song',
-            cover: 'testurl',
-            createrId: 'test-id',
-            description: '简介。。。。',
-            songList: ['1', '2']
-        }).then(function (object) {
-            alert('LeanCloud Rocks!');
-        })
-    </script>
+    <script src="./js/initializers/av.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../vendors/moxie.js"></script>
+    <script src="../node_modules/plupload/js/plupload.min.js"></script>
+    <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script src="./js/admin/loading.js"></script>
+    <script src="./js/admin/song-form.js"></script>
+    <script src="./js/admin/new-song.js"></script>
+    <script src="./js/admin/song-list.js"></script>
+    <script src="./js/admin/upload-song.js"></script>
 </body>
 
 </html>
