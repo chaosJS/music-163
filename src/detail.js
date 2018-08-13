@@ -1,3 +1,3 @@
 {
-    "admin"; "list";
+    "admin"; "test user account";
 }
