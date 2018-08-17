@@ -6,67 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>后台管理页面</title>
+    <link rel="stylesheet" href="./css/default.css">
 </head>
 
 <body>
-    <style>
-        #container {
-            width: 300px;
-            border: 2px dashed #ddd;
-            padding: 50px 80px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-        }
-
-        #xxx {
-            color: #1989fa;
-            background-color: rgba(25, 137, 250, .04);
-            border-color: rgba(25, 137, 250, .4);
-            font-weight: 500;
-            -webkit-transition: all .15s;
-            transition: all .15s;
-            padding: 0 15px;
-            line-height: 32px;
-            border-radius: 4px;
-        }
-    </style>
     <div class="page">
         <aside>
-            <div>
+            <div class="add-song">
                 新建歌曲
             </div>
-            <ul>
-                <li></li>
+            <ul class="song-list">
+                <li class="active">歌曲12323</li>
+                <li>歌曲1666</li>
+                <li>歌曲14</li>
+                <li>歌曲13</li>
+                <li>歌曲12</li>
+
             </ul>
             <div id="container">
                 <button id="xxx">upload</button>
             </div>
         </aside>
         <main>
+            <p>歌曲信息</p>
             <form>
                 <div class="row">
                     <label>
                         歌名
+                        <br/>
                         <input type="text">
                     </label>
+
                 </div>
                 <div class="row">
                     <label>
                         歌手
+                        <br/>
+
                         <input type="text">
                     </label>
                 </div>
                 <div class="row">
                     <label>
                         外链
+                        <br/>
+
                         <input type="text">
                     </label>
                 </div>
                 <div class="row">
-                    <button type="submit">保存</button>
+                    <button type="submit" class="saveBtn">保存</button>
                 </div>
             </form>
         </main>
