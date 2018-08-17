@@ -17,23 +17,26 @@ body{
     border: 2px dashed #ddd;
     padding: 30px;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 20px 0;
+    position: absolute;
+    bottom: 0;
+    left: 13px;
 
 }
 
 #xxx {
-    color: #1989fa;
-    background-color: rgba(25, 137, 250, .04);
-    border-color: rgba(25, 137, 250, .4);
-    font-weight: 500;
-    -webkit-transition: all .15s;
-    transition: all .15s;
-    padding: 0 15px;
-    line-height: 32px;
-    border-radius: 4px;
+    background-color: rgba(247, 235, 235);
+    border: none;
+    color: rgba(81, 85, 112);
+    font-family:Arial;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    border-radius: 30px;
+    cursor: pointer;
+
 }
 .page{
     display: flex;
@@ -47,6 +50,7 @@ body{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     width: 20%;
+    position: relative;
 }
 .page>main{
     flex-grow: 1;
@@ -85,7 +89,6 @@ body{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 18px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 30px;
