@@ -3,7 +3,7 @@
         el: '#song-list-container',
         template: `
         <ul class="song-list">
-        <li class="active">歌曲12323</li>
+        <li>歌曲12323</li>
         <li>歌曲1666</li>
         <li>歌曲14</li>
         <li>歌曲13</li>

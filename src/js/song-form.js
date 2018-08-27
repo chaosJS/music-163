@@ -44,8 +44,11 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.view.render(this.model.data)
+            this.view.render(this.model.data);
+            window.eventHub.on('upload', (data) => {
+                console.log('song form data::', data)
+            })
         }
     }
-    controller.init(view, model)
+    controller.init(view, model);
 }
