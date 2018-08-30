@@ -50,6 +50,7 @@ body{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     width: 20%;
+    padding: 20px 0 0 0 ;
     position: relative;
 }
 .page>main{
@@ -111,8 +112,15 @@ body{
     padding: 15px ;
     border-bottom: 1px solid rgba(150, 153, 168);
     color: #ddd;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .song-list>li.active{
+    background-color: rgba(247, 235, 235);
+    color: rgba(92, 89, 108);
+}
+.add-song.active{
     background-color: rgba(247, 235, 235);
     color: rgba(92, 89, 108);
 }
