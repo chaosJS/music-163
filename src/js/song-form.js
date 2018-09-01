@@ -60,6 +60,10 @@
             var Song = AV.Object.extend('Song');
             var song = new Song();
             song.set({ ...data });
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            song.setACL(acl);
             return song.save().then(
                 (newSong) => {
                     // console.log(newSong)
@@ -81,40 +85,67 @@
             this.model = model;
             this.bindEvents();
             this.view.render(this.model.data);
-            window.eventHub.on('upload', (data) => {
-                // console.log('song form data::', data)
-                this.reset(data);
-            })
+            // window.eventHub.on('upload', (data) => {
+            //     // console.log('song form data::', data)
+            //     this.reset(data);
+            // })
             window.eventHub.on('selected', (data) => {
                 // console.log('song form data::', data)
                 this.model.data = data;
                 this.view.render(data)
             });
-            window.eventHub.on('new', () => {
-                this.model.data = {};
+            window.eventHub.on('new', (data) => {
+                // data = data || {};
+                if (this.model.data.id) {
+                    this.model.data = {}
+                } else {
+                    Object.assign(this.model.data, data);
+                }
                 this.view.render(this.model.data)
             })
         },
         reset(data) {
             this.view.render(data)
         },
+        create() {
+            let needs = ['name', 'singer', 'url'];
+            let data = {};
+            needs.map((str) => {
+                data[str] = this.view.$el.find(`[name="${str}"]`).val();
+            })
+            this.model.create(data).then(
+                () => {
+                    this.view.reset();
+                    window.eventHub.emit('create', Object.assign({}, this.model.data));
+                },
+                () => { }
+            )
+        },
+        update() {
+            let needs = ['name', 'singer', 'url'];
+            let data = {};
+            needs.map((str) => {
+                data[str] = this.view.$el.find(`[name="${str}"]`).val();
+            });
+
+            var song = AV.Object.createWithoutData('Song', this.model.data.id);
+            song.set('name', data.name);
+            song.set('singer', data.singer);
+            song.set('url', data.url);
+
+            song.set({ ...data });
+            song.save().then(() => { }, (err) => { console.log(err) })
+        },
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
                 e.preventDefault();
-                let needs = ['name', 'singer', 'url'];
+                if (this.model.data.id) {
+                    this.update();
+                } else {
+                    this.create();
+                }
 
-                let data = {};
-                needs.map((str) => {
-                    data[str] = this.view.$el.find(`[name="${str}"]`).val();
-                })
 
-                this.model.create(data).then(
-                    () => {
-                        this.view.reset();
-                        window.eventHub.emit('create', Object.assign({}, this.model.data));
-                    },
-                    () => { }
-                )
             })
         }
     }

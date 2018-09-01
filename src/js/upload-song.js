@@ -59,7 +59,7 @@
                         // uploadStatus.textContent = sourceLink + '-' + res.key;
 
                         console.log('ssssssssss', sourceLink);
-                        window.eventHub.emit('upload', {
+                        window.eventHub.emit('new', {
                             url: sourceLink,
                             name: res.key
                         })
