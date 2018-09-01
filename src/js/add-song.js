@@ -20,10 +20,18 @@
                 this.active();
                 console.log('new song data::', data)
             })
+            window.eventHub.on('selected', (data) => {
+                this.deactive();
+            })
+            $(this.view.el).on('click', this.active.bind(this))
 
         },
         active() {
-            $(this.view.el).addClass('active')
+            $(this.view.el).addClass('active');
+            window.eventHub.emit('new');
+        },
+        deactive() {
+            $(this.view.el).removeClass('active')
         }
     }
     controller.init(view, model)

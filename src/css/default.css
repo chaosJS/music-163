@@ -115,6 +115,7 @@ body{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: pointer;
 }
 .song-list>li.active{
     background-color: rgba(247, 235, 235);

@@ -85,6 +85,15 @@
                 // console.log('song form data::', data)
                 this.reset(data);
             })
+            window.eventHub.on('selected', (data) => {
+                // console.log('song form data::', data)
+                this.model.data = data;
+                this.view.render(data)
+            });
+            window.eventHub.on('new', () => {
+                this.model.data = {};
+                this.view.render(this.model.data)
+            })
         },
         reset(data) {
             this.view.render(data)
