@@ -56,6 +56,14 @@
             url: '',
             id: ''
         },
+        update(data) {
+            var song = AV.Object.createWithoutData('Song', this.data.id);
+            song.set({ ...data });
+            return song.save().then(res => {
+                Object.assign(this.data, data);
+                return res;
+            })
+        },
         create(data) {
             var Song = AV.Object.extend('Song');
             var song = new Song();
@@ -127,14 +135,14 @@
             needs.map((str) => {
                 data[str] = this.view.$el.find(`[name="${str}"]`).val();
             });
+            this.model.update(data)
+                .then(
+                    () => {
+                        window.eventHub.emit('update', Object.assign({}, this.model.data))
+                    },
+                    () => {
 
-            var song = AV.Object.createWithoutData('Song', this.model.data.id);
-            song.set('name', data.name);
-            song.set('singer', data.singer);
-            song.set('url', data.url);
-
-            song.set({ ...data });
-            song.save().then(() => { }, (err) => { console.log(err) })
+                    })
         },
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
