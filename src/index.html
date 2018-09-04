@@ -159,6 +159,41 @@
             </li>
         </ol>
     </div>
+
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/admin/init-av.js"></script>
+    <script>
+        //eventHub
+        window.eventHub = {
+            //事件
+            events: {
+            },
+            //发布
+            emit(eventName, data) {
+                for (let key in this.events) {
+                    if (key === eventName) {
+                        let fnList = this.events[key];
+                        fnList.map((fn) => {
+                            fn.call(undefined, data)
+                        })
+                    }
+                }
+            },
+            // 订阅
+            on(eventName, fn) {
+                if (this.events[eventName] === undefined) {
+                    this.events[eventName] = [];
+                }
+                this.events[eventName].push(fn);
+            },
+        }
+    </script>
+
+    <script src="./js/index/tabs.js"></script>
+    <script src="./js/index/page-1.js"></script>
+    <script src="./js/index/page-2.js"></script>
+    <script src="./js/index/page-3.js"></script>
 </body>
 
 </html>
