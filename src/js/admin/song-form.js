@@ -33,12 +33,20 @@
                 </label>
             </div>
             <div class="row">
+                <label>
+                    封面
+                    <br/>
+
+                    <input type="text" name="cover" value="__cover__">
+                </label>
+            </div>
+            <div class="row">
                 <button type="submit" class="saveBtn">保存</button>
             </div>
         </form>
         `,
         render(data = {}) {
-            let placeholders = ['name', 'singer', 'url', 'id'];
+            let placeholders = ['name', 'singer', 'url', 'id', 'cover'];
             let html = this.template;
             placeholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -54,7 +62,8 @@
             name: '',
             singer: '',
             url: '',
-            id: ''
+            id: '',
+            cover: ''
         },
         update(data) {
             var song = AV.Object.createWithoutData('Song', this.data.id);
@@ -130,7 +139,7 @@
             )
         },
         update() {
-            let needs = ['name', 'singer', 'url'];
+            let needs = ['name', 'singer', 'url', 'cover'];
             let data = {};
             needs.map((str) => {
                 data[str] = this.view.$el.find(`[name="${str}"]`).val();
