@@ -15,7 +15,6 @@
         },
         bindEventHub() {
             window.eventHub.on('beforeUpload', () => {
-                debugger
                 this.view.show()
             })
             window.eventHub.on('afterUpload', () => {

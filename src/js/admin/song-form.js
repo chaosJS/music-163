@@ -41,12 +41,20 @@
                 </label>
             </div>
             <div class="row">
+                <label>
+                    歌词
+                    <br/>
+
+                    <textarea name="lyrics" >__lyrics__</textarea>
+                </label>
+            </div>
+            <div class="row">
                 <button type="submit" class="saveBtn">保存</button>
             </div>
         </form>
         `,
         render(data = {}) {
-            let placeholders = ['name', 'singer', 'url', 'id', 'cover'];
+            let placeholders = ['name', 'singer', 'url', 'id', 'cover', 'lyrics'];
             let html = this.template;
             placeholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -63,7 +71,8 @@
             singer: '',
             url: '',
             id: '',
-            cover: ''
+            cover: '',
+            lyrics: ''
         },
         update(data) {
             var song = AV.Object.createWithoutData('Song', this.data.id);
@@ -125,7 +134,7 @@
             this.view.render(data)
         },
         create() {
-            let needs = ['name', 'singer', 'url'];
+            let needs = ['name', 'singer', 'url', 'cover', 'lyrics'];
             let data = {};
             needs.map((str) => {
                 data[str] = this.view.$el.find(`[name="${str}"]`).val();
@@ -139,7 +148,7 @@
             )
         },
         update() {
-            let needs = ['name', 'singer', 'url', 'cover'];
+            let needs = ['name', 'singer', 'url', 'cover', 'lyrics'];
             let data = {};
             needs.map((str) => {
                 data[str] = this.view.$el.find(`[name="${str}"]`).val();
