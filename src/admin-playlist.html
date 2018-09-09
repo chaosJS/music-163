@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>歌单管理页面</title>
+    <link rel="stylesheet" href="./css/default.css">
+</head>
+
+<body>
+    <div class="playlistForm-wrapper">
+        <h1>创建歌单</h1>
+        <form class="playlistForm">
+            <div class="row">
+                <label>
+                    歌单名
+                    <input type="text" name="name">
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    简介
+                    <textarea name="summary"></textarea>
+                </label>
+            </div>
+            <div class="row">
+                <button type="submit">创建</button>
+            </div>
+        </form>
+    </div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/admin/init-av.js"></script>
+    <script>
+        //eventHub
+        window.eventHub = {
+            //事件
+            events: {
+            },
+            //发布
+            emit(eventName, data) {
+                for (let key in this.events) {
+                    if (key === eventName) {
+                        let fnList = this.events[key];
+                        fnList.map((fn) => {
+                            fn.call(undefined, data)
+                        })
+                    }
+                }
+            },
+            // 订阅
+            on(eventName, fn) {
+                if (this.events[eventName] === undefined) {
+                    this.events[eventName] = [];
+                }
+                this.events[eventName].push(fn);
+            },
+        }
+    </script>
+    <script>
+
+        let view = {
+            el: '.playlistForm-wrapper',
+            init() {
+                this.$el = $(this.el);
+                this.$form = $(this.el).find('form');
+            }
+        };
+        let model = {
+            create(data) {
+                var Palylist = AV.Object.extend('Palylist');
+                var palylists = new Palylist();
+                palylists.set('name', data.name);
+                palylists.set('summary', data.summary);
+                var acl = new AV.ACL();
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
+                palylists.setACL(acl);
+                palylists.save().then(
+                    (newPlaylist) => {
+                        // console.log(newPlaylist)
+                        // let { id, attributes } = newSnewPlaylistong;
+                        // Object.assign(this.data, { id, ...attributes })
+                    },
+                    (err) => {
+                        console.log(err)
+                    }
+                )
+            }
+        };
+
+        let controller = {
+            init(view, model) {
+                this.view = view;
+                this.view.init();
+                this.model = model;
+                this.bindEvent();
+            },
+            bindEvent() {
+                this.view.$el.on('submit', 'form', (e) => {
+                    e.preventDefault();
+                    let form = this.view.$form.get(0);
+                    let name = form.name.value;
+                    let summary = form.summary.value;
+                    console.log(name, summary);
+                    this.model.create({ name, summary })
+                })
+            }
+        };
+        controller.init(view, model);
+
+    </script>
+</body>
+
+</html>
